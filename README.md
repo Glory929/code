@@ -41,6 +41,13 @@ We did not specifically discuss the ablation setup of the batch size because our
  Blocks=2  | 87.42 | 90.70 | 92.31 | 90.15  
  Blocks=3  | 87.42 | 89.84   | 92.21 | 89.83
  Blocks=4  | 87.05 | 90.36   | 92.31 | 89.91
+
+
+ ## Visual comparison of segmentation results
+ ![Alt text](https://github.com/Glory929/code/blob/main/img/visual.png)
+
+ ![Alt text](https://github.com/Glory929/code/blob/main/img/overlapvisual.png)
+ 
  
  
  
