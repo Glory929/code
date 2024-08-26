@@ -5,6 +5,20 @@ This repository is the work of "GBA-Net: A Method for Brain Tumor Segmentation B
 ## Framework Overview
 ![Alt text](https://github.com/Glory929/code/blob/main/img/network.png)
 
+## Experimental results
+### Table 1 Impact of component removal on network performance.
+|Networks  | GBA  | IBC  | Up/Down-IBC  | HLFF  | ET(%)  | TC(%)  | WT(%)  | AVG(%)  
+ |---- | ----- | ------ | ----- | ------ | ----- | ------  | ------  | ------ 
+ |baseline | ×  | × | × | × | 83.90 | 88.00 | 91.00 | 87.62 
+ | | ×  |  |  |  | 86.53 | 88.65 | 92.00 | 89.06
+ | |   | × |  |  | 86.98 | 89.79 | 92.39 | 89.72
+ | |   |  | × |  | 87.10 | 89.58 | 91.95 | 89.55 
+ | |   |  |  | × | 86.90 | 89.65 | 92.13 | 89.56 
+ | | ×  | × |  |  | 85.76 | 88.81 | 92.11 | 88.90
+ | |   |  | × | × | 87.07 | 89.68 | 92.64 | 89.80 
+ |ours |   |  |  |  | 87.42 | 90.70 | 92.31 | 90.15
+ 
+
 
 
 
