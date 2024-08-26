@@ -29,6 +29,10 @@ This repository is the work of "GBA-Net: A Method for Brain Tumor Segmentation B
  R=2  | 87.42 | 90.70 | 92.31 | 90.15
  R=4  | 87.17 | 90.37   | 92.41 | 89.99
 
+ Note:  
+We did not specifically discuss the ablation setup of the batch size because our research is focused on 3D medical image segmentation, where individual data samples in this field have large volume and complexity. Using a larger batch size would lead to a sharp increase in memory consumption, which is often not feasible. We followed the settings in previous works and set the batch size to 1.
+
+
  ### Table 3 Impact of the stacking layer number of GBA and IBC modules on network performance.
 
   Hyperparameter  | ET(%)  | TC(%)  | WT(%)  | AVG(%)
