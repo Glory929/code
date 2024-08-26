@@ -1,4 +1,4 @@
-# coding=gbk
+
 import os
 import torch
 from torch.utils.data import Dataset
@@ -32,7 +32,7 @@ class Loss(nn.Module):
         self.alpha = alpha
 
     def forward(self, input, target):
-        smooth = 0.01  # ·ÀÖ¹·ÖÄ¸Îª0
+        smooth = 0.01  # é˜²æ­¢åˆ†æ¯ä¸º0
         input1 = F.softmax(input, dim=1)
         target1 = F.one_hot(target, self.n_classes)
         input1 = rearrange(input1, 'b n h w s -> b n (h w s)')
@@ -92,14 +92,14 @@ def train_loop(model, optimizer, scheduler, criterion, train_loader, device, epo
     pbar = tqdm(train_loader)
     for it, (images, masks) in enumerate(pbar):
         # update learning rate according to the schedule
-        it = len(train_loader) * epoch + it  # µ±Ç°µÄ×Üµü´ú´ÎÊı
+        it = len(train_loader) * epoch + it  # å½“å‰çš„æ€»è¿­ä»£æ¬¡æ•°
         param_group = optimizer.param_groups[0]
         param_group['lr'] = scheduler[it]
         print(scheduler[it])
 
         # [b,4,128,128,128] , [b,128,128,128]
         images, masks = images.to(device), masks.to(device)
-        # [b,4,128,128,128], 4·Ö¸î
+        # [b,4,128,128,128], 4åˆ†å‰²
         outputs = model(images)
         # outputs = torch.softmax(outputs,dim=1)
         loss = criterion(outputs, masks)
