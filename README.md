@@ -46,7 +46,8 @@ We did not specifically discuss the ablation setup of the batch size because our
  ## Visual comparison of segmentation results
  ### Figure 1 Visual comparison of segmentation results.
  ![Alt text](https://github.com/Glory929/code/blob/main/img/visual.png)
- ### Figure 2 Visual Fusion of Segmentation and Original Images
+ 
+ ### Figure 2 Visual fusion of segmentation and original images.
  ![Alt text](https://github.com/Glory929/code/blob/main/img/overlapvisual.png)
  
  
