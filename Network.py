@@ -1,4 +1,4 @@
-# coding=gbk
+
 import torch
 import torch.nn as nn
 import torch.utils.checkpoint as checkpoint
@@ -33,8 +33,8 @@ class LaplacianPyramid(nn.Module):
 
         kernel_weights = gaussian_filter(kernel_weights, sigma=sigma, mode='constant')
 
-        kernel_weights /= np.sum(kernel_weights)  # ¹éÒ»»¯
-        # ºË´óĞ¡Ó¦¸ÃÊÇ c,1,h,w,d
+        kernel_weights /= np.sum(kernel_weights)  # å½’ä¸€åŒ–
+        # æ ¸å¤§å°åº”è¯¥æ˜¯ c,1,h,w,d
         kernel_weights = np.repeat(kernel_weights[None, ...], self.in_channels, axis=0)[:, None, ...]
 
         return torch.from_numpy(kernel_weights).float().to(device)
@@ -292,18 +292,18 @@ class GBANet(nn.Module):
 
         self.block_counts = block_counts
 
-        # --------¿ç²ãÁ¬½Ó----------#
+        # --------è·¨å±‚è¿æ¥----------#
         self.myup2 = nn.Sequential(
-            nn.Conv3d(n_channels * 8, n_channels * 4, kernel_size=1),  # Í¨µÀ¼õ°ë
-            nn.Upsample(scale_factor=2, mode='nearest')  # ´óĞ¡·­±¶
+            nn.Conv3d(n_channels * 8, n_channels * 4, kernel_size=1),  # é€šé“å‡åŠ
+            nn.Upsample(scale_factor=2, mode='nearest')  # å¤§å°ç¿»å€
         )
         self.myup1 = nn.Sequential(
-            nn.Conv3d(n_channels * 8, n_channels * 2, kernel_size=1),  # Í¨µÀ¼õ°ë
-            nn.Upsample(scale_factor=4, mode='nearest')  # ´óĞ¡·­±¶
+            nn.Conv3d(n_channels * 8, n_channels * 2, kernel_size=1),  # é€šé“å‡åŠ
+            nn.Upsample(scale_factor=4, mode='nearest')  # å¤§å°ç¿»å€
         )
         self.myup0 = nn.Sequential(
-            nn.Conv3d(n_channels * 8, n_channels, kernel_size=1),  # Í¨µÀ¼õ°ë
-            nn.Upsample(scale_factor=8, mode='nearest')  # ´óĞ¡·­±¶
+            nn.Conv3d(n_channels * 8, n_channels, kernel_size=1),  # é€šé“å‡åŠ
+            nn.Upsample(scale_factor=8, mode='nearest')  # å¤§å°ç¿»å€
         )
         # --------LaplacianPyramid----------#
         self.freq0 = LaplacianPyramid(in_channels=n_channels * 1, pyramid_levels=3)
@@ -350,7 +350,7 @@ class GBANet(nn.Module):
             x = self.iterative_checkpoint(self.dec_block_3, dec_x)
             if self.do_ds:
                 x_ds_3 = checkpoint.checkpoint(self.out_3, x, self.dummy_tensor)
-            del x_res_3, x_up_3  # É¾³ı£¨ÊÍ·Å£©±äÁ¿
+            del x_res_3, x_up_3  # åˆ é™¤ï¼ˆé‡Šæ”¾ï¼‰å˜é‡
 
             x_up_2 = checkpoint.checkpoint(self.up_2, x, self.dummy_tensor)
             dec_x = x_res_2 + x_up_2
@@ -416,11 +416,11 @@ class GBANet(nn.Module):
 
             x = self.bottleneck(x)
 
-            if self.do_ds:  # Éî¼à¶½
+            if self.do_ds:  # æ·±ç›‘ç£
                 x_ds_4 = self.out_4(x)
 
             x_up_3 = self.up_3(x)
-            # ---------¿ç²ãÁ¬½Ó--------#
+            # ---------è·¨å±‚è¿æ¥--------#
             up2x = self.myup2(x_up_3)
             up1x = self.myup1(x_up_3)
             up0x = self.myup0(x_up_3)
@@ -428,7 +428,7 @@ class GBANet(nn.Module):
             dec_x = x_res_3 + x_up_3
             x = self.dec_block_3(dec_x)
 
-            if self.do_ds:  # Éî¼à¶½
+            if self.do_ds:  # æ·±ç›‘ç£
                 x_ds_3 = self.out_3(x)
             del x_res_3, x_up_3
 
@@ -437,7 +437,7 @@ class GBANet(nn.Module):
             dec_x = dec_x * up2x  #
             x = self.dec_block_2(dec_x)
 
-            if self.do_ds:  # Éî¼à¶½
+            if self.do_ds:  # æ·±ç›‘ç£
                 x_ds_2 = self.out_2(x)
             del x_res_2, x_up_2
 
@@ -446,7 +446,7 @@ class GBANet(nn.Module):
             dec_x = dec_x * up1x  #
             x = self.dec_block_1(dec_x)
 
-            if self.do_ds:  # Éî¼à¶½
+            if self.do_ds:  # æ·±ç›‘ç£
                 x_ds_1 = self.out_1(x)
             del x_res_1, x_up_1
 
