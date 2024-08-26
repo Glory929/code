@@ -17,6 +17,17 @@ This repository is the work of "GBA-Net: A Method for Brain Tumor Segmentation B
  | | ×  | × |  |  | 85.76 | 88.81 | 92.11 | 88.90
  | |   |  | × | × | 87.07 | 89.68 | 92.64 | 89.80 
  |ours |   |  |  |  | 87.42 | 90.70 | 92.31 | 90.15
+
+ ### Table 2 Impact of hyperparameter settings on network performance."Lr" stands for the base learning rate, and "R" represents the channel scaling factor in the bottleneck block.
+
+ Hyperparameter  | ET(%)  | TC(%)  | WT(%)  | AVG(%)
+ ---- | ----- | ------   | ----- | ------
+ Lr=0.002  | 87.14 | 90.32   | 92.48 | 89.99
+ Lr=0.004  | 87.42 | 90.70 | 92.31 | 90.15  
+ Lr=0.008  | 86.98 | 89.33   | 92.15 | 89.49
+ R=1  | 86.28 | 89.19   | 92.03 | 89.17 
+ R=2  | 87.42 | 90.70 | 92.31 | 90.15
+ R=4  | 87.17 | 90.37   | 92.41 | 89.99
  
 
 
