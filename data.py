@@ -1,4 +1,4 @@
-# coding=gbk
+
 import os
 from torch.utils.data import Dataset
 import random
