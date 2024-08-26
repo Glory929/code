@@ -416,9 +416,6 @@ class GBANet(nn.Module):
 
             x = self.bottleneck(x)
 
-            if self.do_ds:  # 深监督
-                x_ds_4 = self.out_4(x)
-
             x_up_3 = self.up_3(x)
             # ---------跨层连接--------#
             up2x = self.myup2(x_up_3)
@@ -428,8 +425,6 @@ class GBANet(nn.Module):
             dec_x = x_res_3 + x_up_3
             x = self.dec_block_3(dec_x)
 
-            if self.do_ds:  # 深监督
-                x_ds_3 = self.out_3(x)
             del x_res_3, x_up_3
 
             x_up_2 = self.up_2(x)
@@ -437,8 +432,6 @@ class GBANet(nn.Module):
             dec_x = dec_x * up2x  #
             x = self.dec_block_2(dec_x)
 
-            if self.do_ds:  # 深监督
-                x_ds_2 = self.out_2(x)
             del x_res_2, x_up_2
 
             x_up_1 = self.up_1(x)
@@ -446,8 +439,6 @@ class GBANet(nn.Module):
             dec_x = dec_x * up1x  #
             x = self.dec_block_1(dec_x)
 
-            if self.do_ds:  # 深监督
-                x_ds_1 = self.out_1(x)
             del x_res_1, x_up_1
 
             x_up_0 = self.up_0(x)
@@ -458,9 +449,6 @@ class GBANet(nn.Module):
 
             x = self.out_0(x)
 
-        if self.do_ds:
-            return [x, x_ds_1, x_ds_2, x_ds_3, x_ds_4]
-        else:
             return x
 
 
