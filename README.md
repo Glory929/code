@@ -28,6 +28,18 @@ This repository is the work of "GBA-Net: A Method for Brain Tumor Segmentation B
  R=1  | 86.28 | 89.19   | 92.03 | 89.17 
  R=2  | 87.42 | 90.70 | 92.31 | 90.15
  R=4  | 87.17 | 90.37   | 92.41 | 89.99
+
+ ### Table 3 Impact of the stacking layer number of GBA and IBC modules on network performance.
+
+  Hyperparameter  | ET(%)  | TC(%)  | WT(%)  | AVG(%)
+ ---- | ----- | ------   | ----- | ------
+ Blocks=1  | 86.82 | 89.96   | 92.31 | 89.70
+ Blocks=2  | 87.42 | 90.70 | 92.31 | 90.15  
+ Blocks=3  | 87.42 | 89.84   | 92.21 | 89.83
+ Blocks=4  | 87.05 | 90.36   | 92.31 | 89.91
+ 
+ 
+ 
  
 
 
