@@ -5,7 +5,7 @@ This repository is the work of "GBA-Net: A Method for Brain Tumor Segmentation B
 
 ![Alt text](https://github.com/Glory929/code/blob/main/img/GBAmodule.png)
 
-![Alt text](https://github.com/Glory929/code/blob/main/img/Up-Down IBCmodule.png)
+![Alt text](https://github.com/Glory929/code/blob/main/img/Up-DownIBCmodule.png)
 
 ![Alt text](https://github.com/Glory929/code/blob/main/img/HLFFmodule.png)
 
