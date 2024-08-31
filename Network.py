@@ -13,7 +13,7 @@ from blocks import *
 device = torch.device('cuda:1' if torch.cuda.is_available() else 'cpu')
 
 
-class LaplacianPyramid(nn.Module):
+class GSPyramid(nn.Module):
     def __init__(self, in_channels=64, pyramid_levels=3):
 
         super().__init__()
@@ -33,8 +33,8 @@ class LaplacianPyramid(nn.Module):
 
         kernel_weights = gaussian_filter(kernel_weights, sigma=sigma, mode='constant')
 
-        kernel_weights /= np.sum(kernel_weights)  # 归一化
-        # 核大小应该是 c,1,h,w,d
+        kernel_weights /= np.sum(kernel_weights)  
+        
         kernel_weights = np.repeat(kernel_weights[None, ...], self.in_channels, axis=0)[:, None, ...]
 
         return torch.from_numpy(kernel_weights).float().to(device)
@@ -292,24 +292,24 @@ class GBANet(nn.Module):
 
         self.block_counts = block_counts
 
-        # --------跨层连接----------#
+    
         self.myup2 = nn.Sequential(
-            nn.Conv3d(n_channels * 8, n_channels * 4, kernel_size=1),  # 通道减半
-            nn.Upsample(scale_factor=2, mode='nearest')  # 大小翻倍
+            nn.Conv3d(n_channels * 8, n_channels * 4, kernel_size=1),  
+            nn.Upsample(scale_factor=2, mode='nearest')  
         )
         self.myup1 = nn.Sequential(
-            nn.Conv3d(n_channels * 8, n_channels * 2, kernel_size=1),  # 通道减半
-            nn.Upsample(scale_factor=4, mode='nearest')  # 大小翻倍
+            nn.Conv3d(n_channels * 8, n_channels * 2, kernel_size=1), 
+            nn.Upsample(scale_factor=4, mode='nearest') 
         )
         self.myup0 = nn.Sequential(
-            nn.Conv3d(n_channels * 8, n_channels, kernel_size=1),  # 通道减半
-            nn.Upsample(scale_factor=8, mode='nearest')  # 大小翻倍
+            nn.Conv3d(n_channels * 8, n_channels, kernel_size=1), 
+            nn.Upsample(scale_factor=8, mode='nearest') 
         )
-        # --------LaplacianPyramid----------#
-        self.freq0 = LaplacianPyramid(in_channels=n_channels * 1, pyramid_levels=3)
-        self.freq1 = LaplacianPyramid(in_channels=n_channels * 2, pyramid_levels=3)
-        self.freq2 = LaplacianPyramid(in_channels=n_channels * 4, pyramid_levels=3)
-        self.freq3 = LaplacianPyramid(in_channels=n_channels * 8, pyramid_levels=3)
+        # --------GSPyramid----------#
+        self.freq0 = GSPyramid(in_channels=n_channels * 1, pyramid_levels=3)
+        self.freq1 = GSPyramid(in_channels=n_channels * 2, pyramid_levels=3)
+        self.freq2 = GSPyramid(in_channels=n_channels * 4, pyramid_levels=3)
+        self.freq3 = GSPyramid(in_channels=n_channels * 8, pyramid_levels=3)
 
         self.q_conv0 = nn.Conv3d(in_channels=n_channels * 1, out_channels=n_channels * 1, kernel_size=1)
         self.q_conv1 = nn.Conv3d(in_channels=n_channels * 2, out_channels=n_channels * 2, kernel_size=1)
@@ -350,7 +350,7 @@ class GBANet(nn.Module):
             x = self.iterative_checkpoint(self.dec_block_3, dec_x)
             if self.do_ds:
                 x_ds_3 = checkpoint.checkpoint(self.out_3, x, self.dummy_tensor)
-            del x_res_3, x_up_3  # 删除（释放）变量
+            del x_res_3, x_up_3 
 
             x_up_2 = checkpoint.checkpoint(self.up_2, x, self.dummy_tensor)
             dec_x = x_res_2 + x_up_2
@@ -417,7 +417,7 @@ class GBANet(nn.Module):
             x = self.bottleneck(x)
 
             x_up_3 = self.up_3(x)
-            # ---------跨层连接--------#
+           
             up2x = self.myup2(x_up_3)
             up1x = self.myup1(x_up_3)
             up0x = self.myup0(x_up_3)
