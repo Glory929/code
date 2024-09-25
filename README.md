@@ -5,6 +5,44 @@ This repository is the work of "GBA-Net: A Method for Brain Tumor Segmentation B
 ## Framework Overview
 ![Alt text](https://github.com/Glory929/code/blob/main/img/network.png)
 
+## Requirements
+
+- CUDA
+- python==3.10
+- pytorch==2.0.1
+- numpy == 1.26.3
+- einops ==0.6.1
+- scipy==1.10.0
+- timm==0.6.12
+- h5py==3.7.0
+  
+## Data Preparation
+- The structure of the datasets should be as follows:
+
+```
+├── dataset/
+│   ├── brats2021
+│   │   ├── train
+│   │   │     ├── BraTS2021_00000
+│   │   │	  │		    ├──BraTS2021_00000_t1.nii.gz
+│   │   │	  │		    ├──BraTS2021_00000_t1ce.nii.gz
+│   │   │	  │		    ├──BraTS2021_00000_t2.nii.gz
+│   │   │	  │		    ├──BraTS2021_00000_flair.nii.gz
+│   │   │	  │		    └──BraTS2021_00000_seg.nii.gz
+│   │   │     ├── BraTS2021_00001   
+│   │   │     └── ...
+│   │   │        
+│   │   ├── val
+│   │   |     ├── BraTS2021_00800
+│   │   |     ├── BraTS2021_00801
+│   │   |     └── ...
+│   │   |     
+│   │   └── test
+│   │         ├── BraTS2021_01000        
+│   |         ├── BraTS2021_01001
+│   |         └── ...
+```
+
 ## Experimental results
 ### Table 1 Impact of component removal on network performance.
 |Networks  | GBA  | IBC  | Up/Down-IBC  | HLFF  | ET(%)  | TC(%)  | WT(%)  | AVG(%)  
